@@ -41,10 +41,22 @@
         transition: all 0.1s;
       }
       button:hover{
-        border-color: #C9A87C ;
+        border-color: #C9A87C;
         color: #D4A96A;
         transform: translate(1px, 1px);
       }
+      .game-star:hover{
+        color: #87CEEB;
+        border-color: #E0B0FF; 
+        background-color: rgba(224, 176, 255, 0.1);
+        box-shadow: 0 0 10px #E0B0FF, 0 0 20px #87CEEB;
+        transform: scale(1.05) translateY(-2px); 
+        transition: all 0.3s ease;
+        }
+      .game-star{
+        transition: all 0.3s ease;
+      }
+
       h2{
         font-size: 1.1rem;
       }
@@ -70,7 +82,7 @@
         <button data-cat="시간의 궤적">시간의 궤적</button>
         <button data-cat="탐구">탐구</button>
         <button data-cat="일상">일상</button>
-        <button data-cat="게임">게임</button>
+        <button class="game-star" data-cat="게임">게임</button>
         <button data-cat="봉사/회고">봉사/회고</button>
         <button data-cat="문화/사회">문화/사회</button>
 
@@ -126,7 +138,7 @@
           <span>게임</span>
           <h2>요즘 빠진 메타</h2>
           <p>
-          그것은 바로 좋아하는 캐릭터만 써보는 것인데요. </p>
+          그것은 바로 좋아하는 캐릭터만 써보는 것인데요.  </p>
         </article>
       </section>
     </main>
