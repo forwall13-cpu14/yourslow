@@ -2,7 +2,16 @@
 <html lang="ko">
   <head>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet">
+    
     <style>
+
+      @font-face {
+    font-family: 'Tangba';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2601-4@1.1/Tangba12.woff2') format('woff2');
+    font-weight: normal;
+    font-display: swap;
+}
+
       body {
         background-color: #f5f1e8;
         color: #3a352f;
@@ -15,9 +24,22 @@
         margin-bottom: 32px;
         text-align: center;
       }
+      .post-count{
+        font-size:0.85rem;
+        color: #8c8379;
+        margin-bottom: 16px;
+        text-align: center;
+      }
       article {
         padding: 20px 0;
         border-bottom: 1px solid #d9d2c5;
+      }
+      h2{
+        font-size: 1.1rem;
+      }
+      p{
+        font-size: 0.9rem;
+        line-height: 1.9;
       }
       span {
         font-size: 0.8rem;
@@ -27,6 +49,43 @@
         max-width: 640px;
         margin: 0 auto;
       }
+
+      #searchBox {
+        width: 100%;
+        padding: 10px 16px;
+        margin-bottom: 20px;
+        border: 1px solid #d9d2c5;
+        border-radius: 20px;
+        background-color: #faf7f2;
+        color: #3a352f;
+        font-family: 'Noto Serif KR', serif;
+        font-size: 0.85rem;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+
+      #searchBox:focus {
+        border-color: #C9A87C;
+      }
+
+      #searchBox::placeholder{
+        color: #8c8379;
+      }
+
+      #searchResultInfo {
+        font-size: 0.8rem;
+        color: #8c8379;
+        margin-bottom: 16px;
+      }
+
+      mark{
+        background-color: #C9A87C;
+        color: white;
+        padding: 0 2px;
+        border-radius: 3px;
+      }
+      
+
       button{
         background: none;
         border: 1px solid #d9d2c5;
@@ -40,6 +99,23 @@
         margin-bottom: 8px;
         transition: all 0.1s;
       }
+      .time-track{
+        transition: all 0.5s ease;
+        min-width: 110px;
+        display: inline-block;
+      }
+
+      .time-track:hover{
+        font-family: "Tangba", cursive;
+        font-size: 0.7rem;
+        border-color: #8c8379;
+        color: #3a352f;
+        letter-spacing: 0.05rem;
+        position: relative;
+        transform: none;
+      }
+
+
       button:hover{
         border-color: #C9A87C;
         color: #D4A96A;
@@ -57,13 +133,7 @@
         transition: all 0.3s ease;
       }
 
-      h2{
-        font-size: 1.1rem;
-      }
-      p{
-        font-size: 0.9rem;
-        line-height: 1.9;
-      }
+      
       footer{
         margin-top: 60px;
         padding: 30px 0;
@@ -71,6 +141,32 @@
         text-align: center;
         font-size: 0.75rem;
         color: #8c8379;
+      }
+
+      #scrollTop{
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #d9d2c5;
+        color: #3a352f;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.3s;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        padding: 0;
+        margin: 0;
+      }
+      #scrollTop.show{
+        opacity: 1;
+      }
+      #scrollTop:hover{
+        background-color: #C9A87C;
+        transform: translateY(-3px);
       }
 
     </style>
@@ -85,9 +181,16 @@
     </header>
 
     <main>
+      <p class="post-count">총 <span id="count">0</span>개의 글</p>
+
+      <input type="text" id="searchBox" placeholder="제목이나 내용으로 검색...">
+
+      <p id="searchResultInfo"></p>
+
+
       <div>
         <button data-cat="전체">전체</button>
-        <button data-cat="시간의 궤적">시간의 궤적</button>
+        <button class="time-track" data-cat="시간의 궤적">시간의 궤적</button>
         <button data-cat="탐구">탐구</button>
         <button data-cat="일상">일상</button>
         <button class="game-star" data-cat="게임">게임</button>
@@ -97,6 +200,7 @@
       </div>
 
       <section>
+        <div class="post">
         <article data-cat="시간의 궤적">
           <span>2024.08.04</span>
           <span>시간의 궤적</span>
@@ -105,7 +209,10 @@
             선택을 '행동'으로 옮기는 여정이다.
           </p>
         </article>
+        </div>
 
+
+        <div class="post">
         <article data-cat="시간의 궤적">
           <span>2026.02.14</span>
           <span>시간의 궤적</span>
@@ -114,7 +221,9 @@
           인터넷에 은신처를 갖고 싶어서 개인사이트를 만들기 시작했다..
           근데 이거 만들기 왜이리 힘드냐...</p>
         </article>
+        </div>
 
+        <div class="post">
         <article data-cat="탐구">
           <span>2026.02.15</span>
           <span>탐구</span>
@@ -128,9 +237,12 @@
           으으 명령어를 글로 인식하게 하는 거 힘~들~어~근데 제미나이랑 얘기해 보니 이걸 편하게 쓸 수 있는 마크다운이나 확장 프로그램이 있다고 한다. 사람들 너무 대단해!
           엑셀 공부도 했는데 ""와 빈칸이 다르다는 게 참 전자는 의미없는 데이터, 후자는 아예 없는 데이터. 자리가 있고 없고의 차이.
           행과 열은 왜이리 헷갈리는 건지 그래도 행이 가로면서 세로로 드래그 하면 변하는 값,
-          열이 세로면서 가로로 드래그 하면 변하는 값인건 외웠어!</p>
+          열이 세로면서 가로로 드래그 하면 변하는 값인건 외웠어!
+        </p>
         </article>
+        </div>
 
+        <div class="post">
         <article data-cat="일상">
           <span>2026.02.16</span>
           <span>일상</span>
@@ -140,7 +252,9 @@
             의외로 자신이 꾸준한 사람인걸 깨닫게 된다. 계획적이진 못해도 꾸준하고 느리게 시작하지만 끝내는 사람. 그게 나다. 
           </p>
         </article>
+        </div>
 
+        <div class="post">
         <article data-cat="게임">
           <span>2026.02.17</span>
           <span>게임</span>
@@ -150,9 +264,12 @@
           다른 길이 열린다는 것을..이제서야 알게 된거예요. 뭐 그렇다고 해서 완전 수비형으로
           턴을 길게 늘려서 클리어 하는 방식은 답답해서 못해요. 어디까지나 좋아하는 캐릭터 중 
           중심이 되는 딜러+그나마 서포트가 가능한 애정캐릭터를 사용해 즐기는 거라 가볍게 시도하기 좋은 방식이에요.
-          다들 한 번씩 해보세요!  </p>
+          다들 한 번씩 해보세요!  
+        </p>
         </article>
+        </div>
 
+        <div class="post">
         <article data-cat="일상">
           <span>2026.02.18</span>
           <span>일상</span>
@@ -161,13 +278,15 @@
             지금은 백수라 시간의 흐름이 잘 느껴지진않는데 설날이 끝나는건 역시
             아쉽다. 이 느긋한 시간, 공간과 작별이라니 아쉬워~
             </p>
-        </article>
+            </article>
+            </div>
 
+        <div class="post">
         <article data-cat="게임">
           <span>2026.02.18</span>
           <span>게임</span>
             <h2>현자 도 전</h2>
-            <P>힐러란, 하면 할 수록 손이 늘어나고 시야를 넓혀야 하는 직업..
+            <p>힐러란, 하면 할 수록 손이 늘어나고 시야를 넓혀야 하는 직업..
               궁극의 팀 서포터 그것이 힐 러 다. 나는 여태껏 딜러로 가볍게 딜만 하는 방식을 취해와서
               도전할 일 없을 줄 알았는데 인생은 예측불허. 한치 앞길 모른다는게 사람 일이라고 하던가? 
               그나마 난이도가 쉬운 힐러를 추천받아 해보는데, 문제가 발생했다. 직업퀘를 깰 수 없었다.
@@ -178,8 +297,11 @@
               발생한 일이다. 현자는 체력이 줄어들면 채우는 힐러가 아닌 체력이 줄어들기전 미리 막아야
               하는 보호막 힐러였던것이다!!! 맙소사 이런 힐러도 있다고??? 나는 여태껏 무슨 헛고생을..
               암튼 매커니즘을 아니까 쉽게 깼다. 역시 뭐든 초심으로 돌아가봐야 한다...
-            </P>
+            </p>
+            </article>
+            </div>
 
+        <div class="post">
         <article data-cat="일상">
           <span>2026.02.19</span>
           <span>일상</span>
@@ -189,8 +311,12 @@
                시간을 놓아두는 게 이 명상의 핵심이다. 해보면 알겠지만 이게 그렇게 쉽지 않다. 스마트폰 발전 이후 
                가만히 있는 시간을 버티지 못하게 된 현대인을 기준으로 생각해보면 1분만 해도 잘 하고 있다고 생각한다. 
                그리고 이 시간 동안 가만히 바라볼 수 있는 그림이나 식물이 있으면 금상첨화. 5분이 순식간에 흘러간다. 
-               혹여 나처럼 긴장을 많이하고 생각을 많이 하는분들은 한 번 도전해보라고 권하고싶다.</p>
+               혹여 나처럼 긴장을 많이하고 생각을 많이 하는분들은 한 번 도전해보라고 권하고싶다.
+              </p>
+               </article>
+               </div>
 
+        <div class="post">   
         <article data-cat="일상">
           <span>2026.02.20</span>
           <span>일상</span>
@@ -202,7 +328,10 @@
               I <b>really</b> enjoyed <b>just</b> relaxing and having <b>some</b> quiet time." 으으 이 뉘앙스의 차이 때문에 몇 번을 수정하고 문법 오류도 잡았더니 
               지쳐. 배움의 길은 끝이 없다...
             </p>
-            
+            </article>
+            </div>   
+        
+        <div class="post">     
         <article data-cat="탐구">
           <span>2026.02.20</span>
           <span>탐구</span>
@@ -213,20 +342,41 @@
               내가 쓴 문장을 잘 살펴보면 time 앞에 꼭 <b>some</b>이 붙어 있는 것이 보일 것이다. 
               이는 영어에서 자주 쓰는 완충장치로 이 some이 없다면 보고서 같은 느낌이 된다. 마지막으로 enjoyed 앞의<b>really</b>는 감정을 강조하기 위한 표현이다. 
             </p>
+            </article>
+            </div>
+
+        <div class="post">        
+        <article data-cat="일상">
+          <span>2026.02.21</span>
+          <span>일상</span>
+            <h2>슬슬</h2>
+            <p>날짜 쓰는 게 귀찮아 지고 있다. 오늘은 전체 글 갯수 표시해 주는 기능, 글을 내리다 보면 맨 위로 가는 화살표도 만들었다. 
+              내일은 자동으로 날짜 기록해주는거 클로드한테 물어봐야지..아 너무너무 졸려!
+            </p>
+            </article>
+            </div>
 
       </section>
     </main>
+
+    <button id="scrollTop">↑</button>
 
 
     <footer>
       <p>&copy; 2026 yourslow. All rights reserved.</p>
     </footer>
 
+    
     <script>
-      const 버튼들= document.querySelectorAll('button');
+      //글 개수 세기
+      const 전체글수= document.querySelectorAll('article').length;
+      document.getElementById('count').textContent = 전체글수;
+
+
+      const 버튼들= document.querySelectorAll('div button');
       const 글들 = document.querySelectorAll('article');
       버튼들.forEach(function(버튼) {버튼.addEventListener('click',function(){
-        const 선택 = 버튼.dataset.cat;
+        const 선택= 버튼.dataset.cat;
 
 
       글들.forEach(function(글){
@@ -240,6 +390,91 @@
       });
       });
       });
+
+      //맨 위로 버튼
+      const scrollBtn = document.getElementById('scrollTop');
+
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+          scrollBtn.classList.add('show');
+        } else {
+          scrollBtn.classList.remove('show');
+        }
+      });
+
+      scrollBtn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth'});
+      });
+
+      // 검색 창
+      const searchBox=document.getElementById('searchBox');
+      const searchResultInfo= document.getElementById('searchResultInfo')
+
+
+      // 원본 저장
+      글들.forEach(function(글){
+        const p = 글.querySelector('p');
+        if(p) { 
+        p.dataset.original= p.innerHTML;
+        }
+      });
+
+      //검색 창
+      function escapeRegExp(string) {
+       return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+       }
+
+      //검색 기능
+      searchBox.addEventListener('input', function() {
+        const keyword= searchBox.value.toLowerCase();
+        let visibleCount= 0;
+
+        글들.forEach(function(글) {
+         
+          const 제목E1= 글.querySelector('h2');
+          const 내용E1= 글.querySelector('p');
+
+          if(!제목E1 || !내용E1) return;
+          
+          const 제목텍스트= 제목E1.textContent.toLowerCase();
+          const 내용텍스트= 내용E1.textContent.toLowerCase();
+
+          //원본 복구
+          제목E1.innerHTML= 제목E1.textContent;
+          내용E1.innerHTML= 내용E1.dataset.original;
+          
+          
+          if(제목텍스트.includes(keyword) || 내용텍스트.includes(keyword)) {
+            글.style.display='block';
+            visibleCount++; 
+
+            if(keyword !=='') {
+              const safekeyword= escapeRegExp(keyword);
+              const regex= new RegExp(`(${safekeyword})`, 'gi');
+
+              제목E1.innerHTML= 
+               제목E1.innerHTML.replace(regex, `<mark>$1</mark>` ); 
+              내용E1.innerHTML= 
+               내용E1.innerHTML.replace(regex, `<mark>$1</mark>` ); 
+            }
+
+          } else{
+            글.style.display='none';
+          }
+          });
+
+
+          if(keyword === ''){
+            searchResultInfo.textContent='';
+           } else {
+            searchResultInfo.textContent= 
+            `"${keyword}" 검색 결과 ${visibleCount}개`;
+           }
+          });
+          
+           
+           
+
     </script>
   </body>
 </html>
